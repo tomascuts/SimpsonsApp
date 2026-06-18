@@ -12,3 +12,6 @@ https://github.com/ExBattou/SimpsonsApp
 Gradle property is invalid (Java home supplied is invalid)
 
 El error se da en el file gradle.properties debido a que esta el JDK 17. Eliminar esta linea permite bajar las dependencias con Gradle de forma correcta.
+
+2- Error en la estructura del proyecto.
+Por ejemplo: Existe un package main, el cual tiene mezclados screens y viewModels. Esto no debería ocurrir. Cada componente deberia ir en su package correspondiente. los screens en UI y los viewModel en un package logic.viewModel
