@@ -15,3 +15,17 @@ El error se da en el file gradle.properties debido a que esta el JDK 17. Elimina
 
 2- Error en la estructura del proyecto.
 Por ejemplo: Existe un package main, el cual tiene mezclados screens y viewModels. Esto no debería ocurrir. Cada componente deberia ir en su package correspondiente. los screens en UI y los viewModel en un package logic.viewModel
+
+3- En el file Episode.kt hay una clase sin declarar de forma correcta, por lo que al realizar un build arroja el siguiente error:
+file:///C:/examen_desaApps/SimpsonsApp/app/src/main/java/com/example/simpsonsapp/domain/model/Episode.kt:13:1 Expecting a top level declaration
+Se resuelve declarando la clase de forma correcta indicando que va a retornar
+
+4- Existe un error en tiempo de compilación (KAPT), el cual intenta cargar SQLite nativo para verificar mis schema.
+En mi entorno Windows y JDK 17, no encuentra el binario nativo de sqlite-jdbc en el classpath del procesador.
+Esto se resuelve agregando la dependencia de sqlite-jdbc en el file build.gradle.kts. 
+  kapt("org.xerial:sqlite-jdbc:3.53.2.0")
+
+5- En los Dto existen muchos atributos no nulleables como por ejemplo en EpisodesResponse.kt, EpisodeDto tiene muchos String/Int no-null.
+Esto provoca riesgo de crash o fallos de parseo si se quieren mapear datos que devuelve null. 
+
+6- Error detectado: La data class Episode no tiene el componente @Entity y se pretende utilizar como entidad para realizar llamadas a la base de datos con el @Dao.
