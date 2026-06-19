@@ -29,3 +29,8 @@ Esto se resuelve agregando la dependencia de sqlite-jdbc en el file build.gradle
 Esto provoca riesgo de crash o fallos de parseo si se quieren mapear datos que devuelve null. 
 
 6- Error detectado: La data class Episode no tiene el componente @Entity y se pretende utilizar como entidad para realizar llamadas a la base de datos con el @Dao.
+
+7- Mala practica de endpoint absoluto en @GET
+@GET("https://thesimpsonsapi.com/api/episodes")
+Rompiendo la estrategia de baseUrl de Retrofit, dificulta ambientes (dev/stage/prod), reutilización y testing.
+En lugar de esto deberiamos usar @GET("api/episodes") y centralizar host en provider de Retrofit.
